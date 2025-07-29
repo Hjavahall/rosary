@@ -1,0 +1,18 @@
+{% extends "rosary/base.html" %}
+
+{% block title %}{{ prayer.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ mystery|title }} Mysteries</h1>
+    <h2>Step {{ step }}: {{ prayer.title }}</h2>
+    <p>{{ prayer.text }}</p>
+
+    <div>
+        {% if step > 1 %}
+            <a href="{% url 'prayer_step' mystery=mystery step=step|add:'-1' %}">← Previous</a>
+        {% endif %}
+        {% if step < total %}
+            <a href="{% url 'prayer_step' mystery=mystery step=step|add:'1' %}">Next →</a>
+        {% endif %}
+    </div>
+{% endblock %}

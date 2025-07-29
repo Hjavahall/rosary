@@ -1,0 +1,17 @@
+{% extends "rosary/base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Welcome to the Rosary Prayer Companion</h1>
+    <p>Let us help you pray the Rosary step-by-step.</p>
+
+    {% if user.is_authenticated %}
+        <p><a class="btn btn-primary" href="{% url 'dashboard' %}">Go to Dashboard</a></p>
+    {% else %}
+        <p><a class="btn btn-outline-primary" href="{% url 'login' %}">Login</a> or 
+           <a class="btn btn-outline-success" href="{% url 'register' %}">Register</a> to begin.</p>
+    {% endif %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,9 @@
+{% extends "rosary/base.html" %}
+{% block title %}Rosary Complete{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h2>You've completed the Rosary 🙏</h2>
+    <p>Thank you for praying today.</p>
+    <a class="btn btn-success" href="{% url 'dashboard' %}">Return to Dashboard</a>
+</div>
+{% endblock %}

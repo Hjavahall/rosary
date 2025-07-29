@@ -1,0 +1,96 @@
+{% extends "rosary/base.html" %}
+{% load rosary_extras %}
+{% block title %}Rosary Step{% endblock %}
+
+{% block content %}
+<style>
+  .dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 2px;
+  }
+</style>
+
+<div class="text-center">
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Next →</button>
+  </form>
+
+ <!-- ) <h2>Step {{ current_index }} of {{ total_steps }}</h2> -->
+
+  {% if mystery_title %}
+    <p class="lead">Mystery: <strong>{{ mystery_title }}</strong></p>
+  {% endif %}
+
+  <div class="mb-4">
+    <h3>{{ step.name }}</h3>
+    <p>{{ step.text }}</p>
+  </div>
+
+  <!-- 🔵 Introductory -->
+  <h5>Introductory Prayers</h5>
+  <div class="d-flex justify-content-center flex-wrap gap-1 mb-3">
+    {% for i in beads|length|make_range %}
+      {% with bead=beads|index:i %}
+        {% if bead.part == "intro" %}
+          <div class="dot"
+               style="background-color:
+                 {% if i == current_index %}#0d6efd
+                 {% elif i < current_index %}#198754
+                 {% else %}#dee2e6
+                 {% endif %};">
+          </div>
+        {% endif %}
+      {% endwith %}
+    {% endfor %}
+  </div>
+
+  <!-- 🔵 Decades -->
+  <h5>Decades</h5>
+  <div class="d-flex flex-column align-items-center">
+    {% for i in beads|length|make_range %}
+      {% with bead=beads|index:i %}
+        {% if bead.part|slice:":8" == "mystery-" %}
+          {% ifchanged bead.mystery_title %}
+            {% if not forloop.first %}</div>{% endif %}
+            <div class="mb-2 w-100">
+              <p class="text-center"><strong>{{ bead.mystery_title }}</strong></p>
+              <div class="d-flex justify-content-center flex-wrap gap-1">
+          {% endifchanged %}
+
+          <div class="dot"
+               style="background-color:
+                 {% if i == current_index %}#0d6efd
+                 {% elif i < current_index %}#198754
+                 {% else %}#dee2e6
+                 {% endif %};">
+          </div>
+
+          {% if forloop.last %}</div>{% endif %}
+        {% endif %}
+      {% endwith %}
+    {% endfor %}
+  </div>
+
+  <!-- 🔵 Conclusion -->
+  <h5>Concluding Prayers</h5>
+  <div class="d-flex justify-content-center flex-wrap gap-1 mb-4">
+    {% for i in beads|length|make_range %}
+      {% with bead=beads|index:i %}
+        {% if bead.part == "conclusion" %}
+          <div class="dot"
+               style="background-color:
+                 {% if i == current_index %}#0d6efd
+                 {% elif i < current_index %}#198754
+                 {% else %}#dee2e6
+                 {% endif %};">
+          </div>
+        {% endif %}
+      {% endwith %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

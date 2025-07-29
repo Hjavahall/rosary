@@ -1,0 +1,13 @@
+{% extends "rosary/base.html" %}
+
+{% block title %}Who’s Praying{% endblock %}
+
+{% block content %}
+<h2>People Praying Right Now</h2>
+<p>There are {{ count }} active users in the past 10 minutes.</p>
+<ul>
+  {% for region in regions %}
+    <li>{{ region }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

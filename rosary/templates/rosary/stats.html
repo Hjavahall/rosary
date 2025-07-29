@@ -1,0 +1,41 @@
+{% extends "rosary/base.html" %}
+{% block title %}Your Prayer Stats{% endblock %}
+
+{% block content %}
+<h2>Your Prayer Stats</h2>
+
+<canvas id="userChart" width="400" height="200"></canvas>
+<canvas id="globalChart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const userData = {{ user_days|safe }};
+  const globalData = {{ global_days|safe }};
+
+  const format = (data) => ({
+    labels: data.map(d => d.day),
+    datasets: [{
+      label: 'Prayers',
+      data: data.map(d => d.count),
+      borderColor: 'blue',
+      fill: false
+    }]
+  });
+
+  new Chart(document.getElementById('userChart'), {
+    type: 'line',
+    data: format(userData),
+    options: { plugins: { title: { display: true, text: 'Your Daily Prayer Count' }}}
+  });
+
+  new Chart(document.getElementById('globalChart'), {
+    type: 'line',
+    data: format(globalData),
+    options: { plugins: { title: { display: true, text: 'Global Daily Prayer Count' }}}
+  });
+</script>
+
+
+
+
+{% endblock %}
