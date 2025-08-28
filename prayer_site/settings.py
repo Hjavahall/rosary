@@ -17,7 +17,11 @@ if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Local dev fallback
-ALLOWED_HOSTS.append("127.0.0.1")
+ALLOWED_HOSTS = [
+    "rosary2.onrender.com",
+    "127.0.0.1",
+    "localhost",
+]
 
 # --- Installed Apps ---
 INSTALLED_APPS = [
