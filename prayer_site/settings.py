@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure--2038sntb$b0$s(pthdf5kwv=+@0n65q7l1n5i7_g@0nuo%hk0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get("https://rosary2.onrender.com", "127.0.0.1")]
 
 
 # Application definition
